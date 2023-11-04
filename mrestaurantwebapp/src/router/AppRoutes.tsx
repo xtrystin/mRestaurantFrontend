@@ -1,0 +1,47 @@
+import React from 'react';
+import { ApplicationPaths } from './AppRoutesConstants';
+import { Counter } from '../components/Counter';
+import { FetchData } from '../components/FetchData';
+import { Home } from '../components/Home';
+import Login from '../components/auth/Login';
+import Register from '../components/auth/Register';
+
+export interface AppRoute {
+    index?: boolean;
+    path?: string;
+    requireAuth?: boolean;
+    allowedRoles?: string[];
+    element: React.ReactNode;
+}
+
+const AppRoutes: AppRoute[] = [
+    {
+        index: true,
+        element: <Home />,
+    },
+    {
+        path: ApplicationPaths.Counter,
+        element: <Counter />,
+    },
+    {
+        path: ApplicationPaths.Login,
+        element: <Login />
+    },
+    {
+        path: ApplicationPaths.LogOut,
+        element: <Home />,
+        requireAuth: true
+    },
+    {
+        path: ApplicationPaths.Register,
+        element: <Register />
+    },
+    {
+        path: ApplicationPaths.FetchData,
+        requireAuth: true,
+        allowedRoles: ['admin', 'employee'],
+        element: <FetchData />,
+    },
+];
+
+export default AppRoutes;
