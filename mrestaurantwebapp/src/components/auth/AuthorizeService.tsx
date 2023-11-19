@@ -14,7 +14,7 @@ export class AuthorizeService {
     private _user: User | null = null;
     private _isAuthenticated: boolean = false;
     private _userLocalStorageKey: string = "user";
-    private _authApiUrl: string = "https:/localhost:3000";
+    private _authApiUrl: string = "http://localhost:3000";
 
     public async isAuthenticated(): Promise<boolean> {
         const user = await this.getUser();
