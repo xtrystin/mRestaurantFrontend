@@ -12,5 +12,8 @@ export const ApplicationPaths = {
     LogOut: '/Logout',
     Register: `/Register`,
     FetchData: '/fetch-data',
-    Counter: '/counter'
+    Counter: '/counter',
+    Products: '/products',
+    ProductsEdit: '/products/edit/:id',
+    ProductsRemove: '/products/remove/:id'
 };

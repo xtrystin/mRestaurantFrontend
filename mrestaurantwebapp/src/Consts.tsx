@@ -1,0 +1,1 @@
+export const ApiUrl = 'https://mrestaurant-new.azurewebsites.net';
