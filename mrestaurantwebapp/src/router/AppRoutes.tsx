@@ -7,7 +7,6 @@ import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
 import Products from '../components/products/Products';
 import EditProduct from '../components/products/EditProduct';
-import RemoveProduct from '../components/products/RemoveProduct';
 
 export interface AppRoute {
     index?: boolean;
@@ -54,12 +53,7 @@ const AppRoutes: AppRoute[] = [
         path: ApplicationPaths.ProductsEdit,
         requireAuth: true,
         element: <EditProduct />,
-    },
-    {
-        path: ApplicationPaths.ProductsRemove,
-        requireAuth: true,
-        element: <RemoveProduct />,
-    },
+    }
 ];
 
 export default AppRoutes;

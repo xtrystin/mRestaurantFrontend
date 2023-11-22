@@ -5,10 +5,13 @@ import { ReactTabulator } from 'react-tabulator';
 import authService from '../auth/AuthorizeService';
 import { useNavigate } from 'react-router-dom';
 import { ApiUrl } from '../../Consts.tsx';
+import RemoveProductModal from './RemoveProductModal.tsx';
 
 const Products: React.FC = () => {
     const navigate = useNavigate();
     const [productsData, setProductsData] = useState<any[]>([]); // Initialize state for products_data
+    const [showRemoveModal, setShowRemoveModal] = useState(false);
+    const [removeProductData, setRemoveProductData] = useState({id: '', name: ''});
 
     useEffect(() => {
         // Your async function
@@ -42,9 +45,11 @@ const Products: React.FC = () => {
         navigate(`/products/edit/${id}`);
     }
 
-    const redirectToRemovePage = function(e, cell) {
-        let id = cell.getRow().getData()._id;
-        navigate(`/products/remove/${id}`);
+    const cellRemove = (cell) => {
+        let cellData = cell.getRow().getData();
+        //console.log(cellData);
+        setRemoveProductData({id: cellData._id, name: cellData.name});
+        setShowRemoveModal(true);
     }
 
     const columns = [
@@ -53,13 +58,19 @@ const Products: React.FC = () => {
         { title: 'Cena', field: 'price', headerTooltip: true },
         { title: 'Wyłączony', field: 'isDisabled', width: 80, headerTooltip: true, formatter: 'tickCross', sorter: 'boolean', hozAlign: 'center' },
         { title: 'Edytuj', formatter: editIcon, width: 80, hozAlign: 'center', cellClick: (e, cell) => redirectToEditPage(e, cell) },
-        { title: 'Usuń', formatter: removeIcon, width: 80, hozAlign: 'center', headerTooltip: true, cellClick: (e, cell) => redirectToRemovePage(e, cell) },
+        { title: 'Usuń', formatter: removeIcon, width: 80, hozAlign: 'center', headerTooltip: true, cellClick: (e, cell) => cellRemove(cell) },
     ];
 
     // Define other functions here...
 
     return (
         <div>
+            <RemoveProductModal
+                isVisible={showRemoveModal}
+                setVisible={setShowRemoveModal} 
+                product_name={removeProductData.name} 
+                product_id={removeProductData.id}
+            />
             <ReactTabulator
                 columns={columns}
                 data={productsData}
