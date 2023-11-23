@@ -9,6 +9,8 @@ import Products from '../components/products/Products';
 import EditProduct from '../components/products/EditProduct';
 import PolProducts from '../components/polproducts/PolProducts';
 import EditPolProduct from '../components/polproducts/EditPolProduct';
+import Storages from '../components/Storages/Storages';
+import EditStorages from '../components/Storages/EditStorages';
 
 export interface AppRoute {
     index?: boolean;
@@ -65,6 +67,16 @@ const AppRoutes: AppRoute[] = [
         path: ApplicationPaths.PolProductsEdit,
         requireAuth: true,
         element: <EditPolProduct />,
+    },
+    {
+        path: ApplicationPaths.Storages,
+        requireAuth: true,
+        element: <Storages />,
+    },
+    {
+        path: ApplicationPaths.StoragesEdit,
+        requireAuth: true,
+        element: <EditStorages />,
     },
 ];
 

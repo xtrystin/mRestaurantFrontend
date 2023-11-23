@@ -52,7 +52,7 @@ const EditProduct: React.FC = () => {
 
             if (response.ok) {
                 console.log('Product updated successfully');
-                navigate("/products");
+                navigate("/polproducts");
             } else {
                 console.error('Failed to update product');
             }

@@ -16,5 +16,7 @@ export const ApplicationPaths = {
     Products: '/products',
     ProductsEdit: '/products/edit/:id',
     PolProducts: '/polproducts',
-    PolProductsEdit: '/polproducts/edit/:id'
+    PolProductsEdit: '/polproducts/edit/:id',
+    Storages: '/storages',
+    StoragesEdit: '/storages/edit/:id'
 };
