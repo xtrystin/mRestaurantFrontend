@@ -7,6 +7,8 @@ import Login from '../components/auth/Login';
 import Register from '../components/auth/Register';
 import Products from '../components/products/Products';
 import EditProduct from '../components/products/EditProduct';
+import PolProducts from '../components/polproducts/PolProducts';
+import EditPolProduct from '../components/polproducts/EditPolProduct';
 
 export interface AppRoute {
     index?: boolean;
@@ -53,7 +55,17 @@ const AppRoutes: AppRoute[] = [
         path: ApplicationPaths.ProductsEdit,
         requireAuth: true,
         element: <EditProduct />,
-    }
+    },
+    {
+        path: ApplicationPaths.PolProducts,
+        requireAuth: true,
+        element: <PolProducts />,
+    },
+    {
+        path: ApplicationPaths.PolProductsEdit,
+        requireAuth: true,
+        element: <EditPolProduct />,
+    },
 ];
 
 export default AppRoutes;
