@@ -56,7 +56,6 @@ const Pracownicy: React.FC = () => {
     const columns = [
         {title:"Imię", field:"fName"},
           {title:"Nazwisko", field:"lName"},
-          {title:"Adres", field:"address"},
           {title:"Rola", field:"role"},
           {title:"Login", field:"login"},
           {title:"Email", field:"email"},
