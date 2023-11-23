@@ -11,6 +11,8 @@ import PolProducts from '../components/polproducts/PolProducts';
 import EditPolProduct from '../components/polproducts/EditPolProduct';
 import Storages from '../components/Storages/Storages';
 import EditStorages from '../components/Storages/EditStorages';
+import Pracownicy from '../components/Pracownicy/Pracownicy';
+import EditPracownicy from '../components/Pracownicy/EditPracownicy';
 
 export interface AppRoute {
     index?: boolean;
@@ -77,6 +79,16 @@ const AppRoutes: AppRoute[] = [
         path: ApplicationPaths.StoragesEdit,
         requireAuth: true,
         element: <EditStorages />,
+    },
+    {
+        path: ApplicationPaths.Pracownicy,
+        requireAuth: true,
+        element: <Pracownicy />,
+    },
+    {
+        path: ApplicationPaths.PracownicyEdit,
+        requireAuth: true,
+        element: <EditPracownicy />,
     },
 ];
 

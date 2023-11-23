@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const EditPolProduct: React.FC = () => {
     const polProductId = useParams().id;
     const navigate = useNavigate();
+    const [errorMsg, setErrorMsg] = useState("");
 
     const [polProduct, setPolProduct] = useState({
         name: '',
@@ -32,6 +33,7 @@ const EditPolProduct: React.FC = () => {
                 setPolProduct(data);
             } catch (error) {
                 console.error('Error fetching polProduct:', error);
+                setErrorMsg("Error fetching polProduct: " + error);
             }
         };
         const fetchMagazyn = async () => {
@@ -43,13 +45,14 @@ const EditPolProduct: React.FC = () => {
                         const storageData = await response1.json();
                         const storageOptions = [];
                         for(let storage of storageData){
-                            storageOptions.push(<option value={storage._id}>{storage.name}</option>)
+                            storageOptions.push(<option value={storage._id} key={storage._id}>{storage.name}</option>)
                             //mapOfStorages.set(storage._id, {name: storage.name, shortcut: storage.shortcut});
                         }
                         setMagazyny(storageOptions);
 
                     } catch (error) {
                         console.error('Error fetching magazyn:', error);
+                        setErrorMsg("Error fetching magazyn: " + error);
                     }
                 };
 
@@ -80,9 +83,11 @@ const EditPolProduct: React.FC = () => {
                 navigate("/products");
             } else {
                 console.error('Failed to update polProduct');
+                setErrorMsg('Failed to update polProduct');
             }
         } catch (error) {
             console.error('Error updating polProduct:', error);
+            setErrorMsg("Error updating polProduct: " + error);
         }
     };
 
@@ -160,6 +165,8 @@ const EditPolProduct: React.FC = () => {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
+
+                {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
                 <Button variant="primary" onClick={handleUpdatePolProduct}>
                     Update Polproduct

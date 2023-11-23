@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const EditStorages: React.FC = () => {
     const storageId = useParams().id;
     const navigate = useNavigate();
+    const [errorMsg, setErrorMsg] = useState("");
 
     const [storage, setStorage] = useState({
         name: '',
@@ -27,6 +28,7 @@ const EditStorages: React.FC = () => {
                 setStorage(data);
             } catch (error) {
                 console.error('Error fetching storage:', error);
+                setErrorMsg("Error fetching storage: " + error);
             }
         };
 
@@ -56,9 +58,11 @@ const EditStorages: React.FC = () => {
                 navigate("/storages");
             } else {
                 console.error('Failed to update storage');
+                setErrorMsg("Falied to update storage");
             }
         } catch (error) {
             console.error('Error updating storage:', error);
+            setErrorMsg("Error updating storage: " + error);
         }
     };
 
@@ -98,6 +102,8 @@ const EditStorages: React.FC = () => {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
+
+                {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
                 <Button variant="primary" onClick={handleUpdatestorage}>
                     Update storage

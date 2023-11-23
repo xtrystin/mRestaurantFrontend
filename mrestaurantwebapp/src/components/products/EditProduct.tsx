@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const EditProduct: React.FC = () => {
     const productId = useParams().id;
     const navigate = useNavigate();
+    const [errorMsg, setErrorMsg] = useState("");
 
     const [product, setProduct] = useState({
         name: '',
@@ -26,6 +27,7 @@ const EditProduct: React.FC = () => {
                 setProduct(data);
             } catch (error) {
                 console.error('Error fetching product:', error);
+                setErrorMsg("Error fetching product: " + error);
             }
         };
 
@@ -55,9 +57,11 @@ const EditProduct: React.FC = () => {
                 navigate("/polproducts");
             } else {
                 console.error('Failed to update product');
+                setErrorMsg('Failed to update product');
             }
         } catch (error) {
             console.error('Error updating product:', error);
+            setErrorMsg("Error updating product: " + error);
         }
     };
 
@@ -96,6 +100,8 @@ const EditProduct: React.FC = () => {
                         onChange={() => setProduct({ ...product, isDisabled: !product.isDisabled })}
                     />
                 </Form.Group>
+
+                {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
                 <Button variant="primary" onClick={handleUpdateProduct}>
                     Update Product

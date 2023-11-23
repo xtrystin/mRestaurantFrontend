@@ -5,9 +5,9 @@ import { ReactTabulator } from 'react-tabulator';
 import authService from '../auth/AuthorizeService.js';
 import { useNavigate } from 'react-router-dom';
 import { ApiUrl } from '../../Consts.js';
-import RemoveStorageModal from './RemoveStorageModal.js';
+import RemovePracownikModal from './RemovePracownikModal.js';
 
-const Storages: React.FC = () => {
+const Pracownicy: React.FC = () => {
     const navigate = useNavigate();
     const [tableData, setTableData] = useState<any[]>([]); // Initialize state for products_data
     const [showModal, setShowModal] = useState(false);
@@ -18,7 +18,7 @@ const Storages: React.FC = () => {
         const fetchData = async () => {
             try {
                 const url = ApiUrl;
-                const response = await fetch(url + '/api/magazyn', {
+                const response = await fetch(url + '/api/pracownik', {
                     headers: new Headers({ 'Authorization': 'Bearer ' + await authService.getJwtToken() })
                 }); // Replace 'your_api_endpoint' with your actual API endpoint
                 const data = await response.json();
@@ -43,29 +43,33 @@ const Storages: React.FC = () => {
 
     const redirectToEditPage = function(e, cell) {
         let id = cell.getRow().getData()._id;
-        navigate(`/Storages/edit/${id}`);
+        navigate(`/pracownicy/edit/${id}`);
     }
 
     const cellRemove = (cell) => {
         let cellData = cell.getRow().getData();
         //console.log(cellData);
-        setRemoveModalData({id: cellData._id, name: cellData.name});
+        setRemoveModalData({id: cellData._id, name: cellData.fName +" "+ cellData.lName});
         setShowModal(true);
     }
 
     const columns = [
-        {title:"Skrót", width:80, field:"shortcut"},
-            {title:"Nazwa", width:80, field:"name"},
-            {title:"Lokalizacja", field:"location", widthGrow:3},
-            {title:"Edytuj", formatter:editIcon, width:80, hozAlign:"center", cellClick:function(e, cell){redirectToEditPage(e, cell)}},
-            {title:"Usuń", formatter:removeIcon, width:80, hozAlign:"center", cellClick:function(e, cell){cellRemove(cell)}},
+        {title:"Imię", field:"fName"},
+          {title:"Nazwisko", field:"lName"},
+          {title:"Adres", field:"address"},
+          {title:"Rola", field:"role"},
+          {title:"Login", field:"login"},
+          {title:"Email", field:"email"},
+          {title:"Adres", field:"address"},
+          {title:"Edytuj", formatter:editIcon, width:80, hozAlign:"center", cellClick:function(e, cell){redirectToEditPage(e, cell)}},
+          {title:"Usuń", formatter:removeIcon, width:80, hozAlign:"center", cellClick:function(e, cell){cellRemove(cell)}},
     ];
 
     // Define other functions here...
 
     return (
         <div>
-            <RemoveStorageModal
+            <RemovePracownikModal
                 isVisible={showModal}
                 setVisible={setShowModal} 
                 name={removeModalData.name} 
@@ -88,4 +92,4 @@ const Storages: React.FC = () => {
     );
 };
 
-export default Storages;
+export default Pracownicy;
