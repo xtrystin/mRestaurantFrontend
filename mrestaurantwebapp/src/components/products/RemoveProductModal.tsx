@@ -4,7 +4,7 @@ import { ApiUrl } from '../../Consts.tsx';
 import authService from '../auth/AuthorizeService.tsx';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 
-const RemoveProductModal = ({isVisible, setVisible, product_name, product_id, ...args}) => {
+const RemoveProductModal = ({isVisible, setVisible, cell, setCell, product_name, product_id, ...args}) => {
     const [errorMsg, setErrorMsg] = useState("")
 
     const handleRemoveProduct = async () => {
@@ -20,6 +20,7 @@ const RemoveProductModal = ({isVisible, setVisible, product_name, product_id, ..
 
             if (response.ok) {
                 console.log('Product updated successfully');
+                cell.getRow().delete();
                 setErrorMsg("");
                 setVisible(false);
             } else {
