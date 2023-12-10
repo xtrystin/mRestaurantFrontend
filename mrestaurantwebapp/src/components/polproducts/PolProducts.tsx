@@ -105,7 +105,8 @@ const PolProducts: React.FC = () => {
                     { column: 'magazynName', dir: 'asc' },
                 ]}
             />
-            {/* Your other JSX goes here */}
+
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/polproducts/edit?add=1')}>Add</button>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { ApiUrl } from '../../Consts.tsx';
 import authService from '../auth/AuthorizeService.tsx';
@@ -9,21 +9,24 @@ const EditPolProduct: React.FC = () => {
     const polProductId = useParams().id;
     const navigate = useNavigate();
     const [errorMsg, setErrorMsg] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [polProduct, setPolProduct] = useState({
         name: '',
-        unitMain: '',
-        unitSub: '',
-        unit: '',
+        unitMain: 'KOSZ',
+        unitSub: 'WOREK',
+        unit: 'SZTUKA',
         multiplayerSubToMain: 1,
         multiplayerUnitToSub: 1,
-        magazyn: '',
+        magazyn: '63b9a91edacdd31b36169979',
     });
 
     const [magazyny, setMagazyny] = useState([]);
 
     useEffect(() => {
         // Fetch polProduct data based on polProductId
+        let add = searchParams.get('add');
+
         const fetchPolProduct = async () => {
             try {
                 const response = await fetch(ApiUrl + `/api/polprodukt/${polProductId}`, {
@@ -56,7 +59,8 @@ const EditPolProduct: React.FC = () => {
                     }
                 };
 
-        fetchPolProduct();
+        if (!add)
+            fetchPolProduct();
         fetchMagazyn();
     }, [polProductId]);
 
@@ -68,9 +72,11 @@ const EditPolProduct: React.FC = () => {
     };
 
     const handleUpdatePolProduct = async () => {
+        let add = searchParams.get('add');
+
         try {
-            const response = await fetch(ApiUrl + `/api/polprodukt/${polProductId}`, {
-                method: 'PUT',
+            const response = await fetch(ApiUrl + (add ? `/api/polprodukt` : `/api/polprodukt/${polProductId}`), {
+                method: add ? 'POST' : 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + await authService.getJwtToken()
@@ -80,7 +86,7 @@ const EditPolProduct: React.FC = () => {
 
             if (response.ok) {
                 console.log('Polproduct updated successfully');
-                navigate("/products");
+                navigate("/polproducts");
             } else {
                 console.error('Failed to update polProduct');
                 setErrorMsg('Failed to update polProduct');
@@ -93,7 +99,7 @@ const EditPolProduct: React.FC = () => {
 
     return (
         <div>
-            <h2>Edit Polproduct</h2>
+            <h2>Polproduct Data</h2>
             <Form>
                 <Form.Group className="mb-3" controlId="formPolProductName">
                     <Form.Label>Pol product Name</Form.Label>
@@ -166,10 +172,25 @@ const EditPolProduct: React.FC = () => {
                     />
                 </Form.Group>
 
+                <Form.Group className="mb-3" controlId="formPolProductUnit">
+                    <Form.Label>Pol product unit</Form.Label>
+                    <Form.Select
+                        name="unit"
+                        value={polProduct.unit}
+                        onChange={handleInputChange}
+                    >
+                        <option value="SZTUKA">SZTUKA</option>
+                        <option value="TUBA">TUBA</option>
+                        <option value="GR">GR</option>
+                        <option value="ML">ML</option>
+                        <option value="PLASTER">PLASTER</option>
+                    </Form.Select>
+                </Form.Group>
+
                 {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
                 <Button variant="primary" onClick={handleUpdatePolProduct}>
-                    Update Polproduct
+                    Confirm
                 </Button>
             </Form>
         </div>

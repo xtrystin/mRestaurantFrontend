@@ -83,7 +83,8 @@ const Storages: React.FC = () => {
                     { column: 'magazynName', dir: 'asc' },
                 ]}
             />
-            {/* Your other JSX goes here */}
+
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/storages/edit?add=1')}>Add</button>
         </div>
     );
 };

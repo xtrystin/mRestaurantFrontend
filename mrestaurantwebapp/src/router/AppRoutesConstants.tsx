@@ -18,8 +18,10 @@ export const ApplicationPaths = {
     ProductsAdd: '/products/edit/',
     PolProducts: '/polproducts',
     PolProductsEdit: '/polproducts/edit/:id',
+    PolProductsAdd: '/polproducts/edit',
     Storages: '/storages',
     StoragesEdit: '/storages/edit/:id',
+    StoragesAdd: '/storages/edit',
     Pracownicy: '/pracownicy',
     PracownicyEdit: '/pracownicy/edit/:id'
 };

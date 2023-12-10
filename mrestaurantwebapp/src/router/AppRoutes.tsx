@@ -76,12 +76,22 @@ const AppRoutes: AppRoute[] = [
         element: <EditPolProduct />,
     },
     {
+        path: ApplicationPaths.PolProductsAdd,
+        requireAuth: true,
+        element: <EditPolProduct />,
+    },
+    {
         path: ApplicationPaths.Storages,
         requireAuth: true,
         element: <Storages />,
     },
     {
         path: ApplicationPaths.StoragesEdit,
+        requireAuth: true,
+        element: <EditStorages />,
+    },
+    {
+        path: ApplicationPaths.StoragesAdd,
         requireAuth: true,
         element: <EditStorages />,
     },
@@ -94,7 +104,7 @@ const AppRoutes: AppRoute[] = [
         path: ApplicationPaths.PracownicyEdit,
         requireAuth: true,
         element: <EditPracownicy />,
-    },
+    }
 ];
 
 export default AppRoutes;
