@@ -61,6 +61,11 @@ const AppRoutes: AppRoute[] = [
         element: <EditProduct />,
     },
     {
+        path: ApplicationPaths.ProductsAdd,
+        requireAuth: true,
+        element: <EditProduct />,
+    },
+    {
         path: ApplicationPaths.PolProducts,
         requireAuth: true,
         element: <PolProducts />,

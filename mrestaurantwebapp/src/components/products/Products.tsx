@@ -84,6 +84,7 @@ const Products: React.FC = () => {
                 ]}
             />
             {/* Your other JSX goes here */}
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/products/edit?add=1')}>Add</button>
         </div>
     );
 };
