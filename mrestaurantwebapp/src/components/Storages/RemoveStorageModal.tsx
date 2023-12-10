@@ -4,7 +4,7 @@ import { ApiUrl } from '../../Consts.tsx';
 import authService from '../auth/AuthorizeService.tsx';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 
-const RemoveStorageModal = ({isVisible, setVisible, name, id, ...args}) => {
+const RemoveStorageModal = ({ isVisible, setVisible, cell, setCell, name, id, ...args}) => {
     const [errorMsg, setErrorMsg] = useState("")
 
     const handleRemove = async () => {
@@ -20,6 +20,7 @@ const RemoveStorageModal = ({isVisible, setVisible, name, id, ...args}) => {
 
             if (response.ok) {
                 console.log('Magazyn updated successfully');
+                cell.getRow().delete();
                 setErrorMsg("");
                 setVisible(false);
             } else {
