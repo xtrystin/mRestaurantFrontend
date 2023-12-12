@@ -13,12 +13,12 @@ interface FormData {
 const validationSchema = Yup.object().shape({
     username: Yup.string()
         .required('Username is required')
-        .email('Username is not a valid email')
-        .min(6, 'Username must be at least 6 characters')
+        //.email('Username is not a valid email')
+        .min(1, 'Username must be at least 6 characters')
         .max(40, 'Username must not exceed 40 characters'),
     password: Yup.string()
         .required('Password is required')
-        .min(6, 'Password must be at least 6 characters')
+        .min(1, 'Password must be at least 6 characters')
         .max(40, 'Password must not exceed 40 characters'),
 });
 

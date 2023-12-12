@@ -15,12 +15,11 @@ const EditDostawa: React.FC = () => {
     const [polProdukty, setPolProdukty] = useState([]);
 
     const [entry, setEntry] = useState({
+        id: '',
         name: '',
-        amount:'',
+        amount:0,
         unitMain: ''
     });
-
-    let tableData = [];
 
     useEffect(() => {
         // Fetch storage data based on storageId
@@ -29,7 +28,8 @@ const EditDostawa: React.FC = () => {
                 const response = await fetch(ApiUrl + `/api/dostawa/${dostawaId}`, {
                     headers: new Headers({ 'Authorization': 'Bearer ' + await authService.getJwtToken() })
                 });
-                const data = await response.json();
+                let data = await response.json();
+                //console.log(data)
                 setDostawa(data);
 
                 const response2 = await fetch(ApiUrl + '/api/polprodukt', {
@@ -49,16 +49,20 @@ const EditDostawa: React.FC = () => {
     }, [dostawaId]);
 
     const handleInputChange = (e) => {
-        setEntry({
-            ...entry,
-            [e.target.name]: e.target.value,
-        });
-        if(e.target.name == "name"){
+        if(e.target.name == "id"){
+            let pprodukt = polProdukty.find((p)=> p._id == e.target.value)
             setEntry({
                 ...entry,
-                unitMain: polProdukty.find((p)=> p._id == e.target.value).unitMain,
+                unitMain: pprodukt.unitMain,
+                name: pprodukt.name,
+                id: e.target.value
             });
         }
+        else
+            setEntry({
+                ...entry,
+                [e.target.name]: e.target.value
+            });
     };
 
     const handleUpdate = async () => {
@@ -85,14 +89,46 @@ const EditDostawa: React.FC = () => {
         }
     };
 
+    const handleAddEntry = () => {
+        if(entry.name && entry.amount > 0){
+          let newProdukt = {
+            id: entry.id,
+            name: entry.name,
+            unitMain: entry.unitMain
+            }
+            setDostawa({
+                ...dostawa,
+                polProdukty: dostawa.polProdukty.concat(newProdukt),
+                pPAmountJG: dostawa.pPAmountJG.concat(entry.amount - 0)
+            })  
+        }
+    }
+
+    const cellRemove = (cell) => {
+        let cellData = cell.getRow().getData();
+        //console.log(cellData);
+        let index = dostawa.polProdukty.findIndex(p => p._id == cellData._id);
+        setDostawa({
+            ...dostawa,
+            polProdukty: dostawa.polProdukty.filter((p, idx) => idx != index),
+            pPAmountJG: dostawa.pPAmountJG.filter((p, idx) => idx != index),
+        })
+    }
+
+    const removeIcon = function (cell, formatterParams, onRendered) {
+        return '<i class="fa-solid fa-trash customColor-red">remove</i>';
+    };
+
     const columns = [
         {title:"Nazwa", field:"name", headerTooltip:true, headerSort:false},
         {title:"Ilość sztuk", field:"amount", headerTooltip:true, headerSort:false},
         {title:"Jednostka Główna", field:"unitMain", headerTooltip:true, headerSort:false},
+        {title:"Usuń", formatter:removeIcon, width:80, hozAlign:"center", headerTooltip:true, cellClick:function(e, cell){cellRemove(cell)}},
     ];
 
+    let tableData = [];
     if(dostawa){
-        //console.log(dostawa)
+        console.log(dostawa)
         tableData = dostawa.polProdukty.map((p, ind) => ({...p, amount: dostawa.pPAmountJG[ind]}));
     }
     else
@@ -112,10 +148,11 @@ const EditDostawa: React.FC = () => {
                 <Form.Group className="mb-3" controlId="formEntryName">
                     <Form.Label>Polproduct name</Form.Label>
                     <Form.Select
-                        name="name"
-                        value={entry.name}
+                        name="id"
+                        value={entry.id}
                         onChange={handleInputChange}
                     >
+                        <option value={-1} key={-1}>Wybierz półprodukt</option>
                         {productOptions}
                     </Form.Select>
                 </Form.Group>
@@ -146,6 +183,10 @@ const EditDostawa: React.FC = () => {
                 {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
                 <Button variant="primary" onClick={handleUpdate}>
+                    Confirm
+                </Button>
+
+                <Button variant="success" className='float-end' onClick={handleAddEntry}>
                     Add entry
                 </Button>
             </Form>
@@ -159,6 +200,7 @@ const EditDostawa: React.FC = () => {
                 paginationSize={20}
                 paginationSizeSelector={[10, 20, 30, 40, 50]}
             />
+            
         </div>
     );
 };
