@@ -1,25 +1,69 @@
 import React, { Component } from 'react';
+import Products from './products/Products';
+import PolProducts from './polproducts/PolProducts';
+import Pracownicy from './Pracownicy/Pracownicy';
+import Storages from './Storages/Storages';
+import authService from './auth/AuthorizeService';
+
 
 export class Home extends Component {
     static displayName = Home.name;
+    private _subscription: number | null = null;
+
+    constructor(props: {}) {
+        super(props);
+
+        this.state = {
+            isAuthenticated: false,
+            userEmail: null
+        };
+    }
+
+    componentDidMount() {
+        this._subscription = authService.subscribe(() => this.populateState());
+        this.populateState();
+    }
+
+    componentWillUnmount() {
+        if (this._subscription !== null) {
+            authService.unsubscribe(this._subscription);
+        }
+    }
+
+    async populateState() {
+        const userEmail = await authService.getUserEmail();
+        const isAuthenticated = userEmail !== null;
+
+        this.setState({
+            isAuthenticated,
+            userEmail
+        });
+    }
 
     render() {
-        return (
-            <div>
-                <h1>Hello, world!</h1>
-                <p>Welcome to your new single-page application, built with:</p>
-                <ul>
-                    <li><a href='https://facebook.github.io/react/'>React</a> for client-side code</li>
-                    <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
-                </ul>
-                <p>To help you get started, we have also set up:</p>
-                <ul>
-                    <li><strong>Client-side navigation</strong>. For example, click <em>Counter</em> then <em>Back</em> to return here.</li>
-                    <li><strong>Development server integration</strong>. In development mode, the development server from <code>create-react-app</code> runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
-                    <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration produces minified, efficiently bundled JavaScript files.</li>
-                </ul>
-                <p>The <code>ClientApp</code> subdirectory is a standard React application based on the <code>create-react-app</code> template. If you open a command prompt in that directory, you can run <code>npm</code> commands such as <code>npm test</code> or <code>npm install</code>.</p>
-            </div>
-        );
+        const { isAuthenticated, userEmail } = this.state;
+
+        if (isAuthenticated) {
+            return (
+                <div>
+                    <h2>Hello {isAuthenticated ? userEmail : ""}</h2>
+                    <p>Today is {new Date().toLocaleString() + ""}</p>
+                    <h4>Products</h4>
+                    <Products /><br />
+                    <h4>Semi Products</h4>
+                    <PolProducts /><br />
+                </div>
+            );
+        }
+        else {
+            return (
+                <div>
+                    <h2>Hello</h2>
+                    <p>Today is {new Date().toLocaleString() + ""}</p>
+                    <p>Please log in to access sensitive data</p>
+                </div>
+            );
+        }
+
     }
 }

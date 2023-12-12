@@ -11,6 +11,7 @@ export const ApplicationPaths = {
     Login: `/Login`,
     LogOut: '/Logout',
     Register: `/Register`,
+    Profile: `/Profile`,
     FetchData: '/fetch-data',
     Counter: '/counter',
     Products: '/products',

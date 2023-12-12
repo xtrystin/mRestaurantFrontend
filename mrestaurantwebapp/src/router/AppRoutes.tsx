@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Profiler } from 'react';
 import { ApplicationPaths } from './AppRoutesConstants';
 import { Counter } from '../components/Counter';
 import { FetchData } from '../components/FetchData';
@@ -15,6 +15,7 @@ import Pracownicy from '../components/Pracownicy/Pracownicy';
 import EditPracownicy from '../components/Pracownicy/EditPracownicy';
 import Dostawa from '../components/Dostawa/Dostawa';
 import EditDostawa from '../components/Dostawa/EditDostawa';
+import { Profile } from '../components/Profile';
 
 export interface AppRoute {
     index?: boolean;
@@ -36,6 +37,11 @@ const AppRoutes: AppRoute[] = [
     {
         path: ApplicationPaths.Login,
         element: <Login />
+    },
+    {
+        path: ApplicationPaths.Profile,
+        element: <Profile />,
+        requireAuth: true
     },
     {
         path: ApplicationPaths.LogOut,

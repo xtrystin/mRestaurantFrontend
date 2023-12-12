@@ -35,7 +35,16 @@ export class AuthorizeService {
     public async getUserEmail(): Promise<string | null> {
         const user = await this.getUser();
         return user ? user.email : null;
+    }
 
+    public async getUserRole(): Promise<string | null> {
+        const user = await this.getUser();
+        return user ? user.role : null;
+    }
+
+    public async getUserId(): Promise<string | null> {
+        const user = await this.getUser();
+        return user ? user.id : null;
     }
 
     private async getUser() {
