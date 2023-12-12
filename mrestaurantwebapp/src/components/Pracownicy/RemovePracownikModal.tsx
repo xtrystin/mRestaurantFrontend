@@ -4,7 +4,7 @@ import { ApiUrl } from '../../Consts.tsx';
 import authService from '../auth/AuthorizeService.tsx';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 
-const RemovePracownikModal = ({isVisible, setVisible, name, id, ...args}) => {
+const RemovePracownikModal = ({ isVisible, setVisible, cell, setCell, name, id, ...args}) => {
     const [errorMsg, setErrorMsg] = useState("")
 
     const handleRemove = async () => {
@@ -20,6 +20,7 @@ const RemovePracownikModal = ({isVisible, setVisible, name, id, ...args}) => {
 
             if (response.ok) {
                 console.log('Pracownik updated successfully');
+                cell.getRow().delete();
                 setErrorMsg("");
                 setVisible(false);
             } else {

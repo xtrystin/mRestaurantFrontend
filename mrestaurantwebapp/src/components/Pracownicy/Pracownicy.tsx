@@ -11,7 +11,8 @@ const Pracownicy: React.FC = () => {
     const navigate = useNavigate();
     const [tableData, setTableData] = useState<any[]>([]); // Initialize state for products_data
     const [showModal, setShowModal] = useState(false);
-    const [removeModalData, setRemoveModalData] = useState({id: '', name: ''});
+    const [removeModalData, setRemoveModalData] = useState({ id: '', name: '' });
+    const [cell, setCell] = useState(null);
 
     useEffect(() => {
         // Your async function
@@ -49,7 +50,8 @@ const Pracownicy: React.FC = () => {
     const cellRemove = (cell) => {
         let cellData = cell.getRow().getData();
         //console.log(cellData);
-        setRemoveModalData({id: cellData._id, name: cellData.fName +" "+ cellData.lName});
+        setRemoveModalData({ id: cellData._id, name: cellData.fName + " " + cellData.lName });
+        setCell(cell)
         setShowModal(true);
     }
 
@@ -70,7 +72,9 @@ const Pracownicy: React.FC = () => {
         <div>
             <RemovePracownikModal
                 isVisible={showModal}
-                setVisible={setShowModal} 
+                setVisible={setShowModal}
+                cell={cell}
+                setCell={setCell}
                 name={removeModalData.name} 
                 id={removeModalData.id}
             />

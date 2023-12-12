@@ -11,7 +11,8 @@ const Products: React.FC = () => {
     const navigate = useNavigate();
     const [productsData, setProductsData] = useState<any[]>([]); // Initialize state for products_data
     const [showRemoveModal, setShowRemoveModal] = useState(false);
-    const [removeProductData, setRemoveProductData] = useState({id: '', name: ''});
+    const [removeProductData, setRemoveProductData] = useState({ id: '', name: '' });
+    const [cell, setCell] = useState(null);
 
     useEffect(() => {
         // Your async function
@@ -50,6 +51,7 @@ const Products: React.FC = () => {
         //console.log(cellData);
         setRemoveProductData({id: cellData._id, name: cellData.name});
         setShowRemoveModal(true);
+        setCell(cell)
     }
 
     const columns = [
@@ -68,6 +70,8 @@ const Products: React.FC = () => {
             <RemoveProductModal
                 isVisible={showRemoveModal}
                 setVisible={setShowRemoveModal} 
+                cell={cell}
+                setCell={setCell}
                 product_name={removeProductData.name} 
                 product_id={removeProductData.id}
             />
@@ -84,6 +88,7 @@ const Products: React.FC = () => {
                 ]}
             />
             {/* Your other JSX goes here */}
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/products/edit?add=1')}>Add</button>
         </div>
     );
 };

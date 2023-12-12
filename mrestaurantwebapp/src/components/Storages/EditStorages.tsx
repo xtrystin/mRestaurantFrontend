@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { ApiUrl } from '../../Consts.tsx';
 import authService from '../auth/AuthorizeService.tsx';
@@ -9,6 +9,7 @@ const EditStorages: React.FC = () => {
     const storageId = useParams().id;
     const navigate = useNavigate();
     const [errorMsg, setErrorMsg] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [storage, setStorage] = useState({
         name: '',
@@ -19,6 +20,10 @@ const EditStorages: React.FC = () => {
 
     useEffect(() => {
         // Fetch storage data based on storageId
+        let add = searchParams.get('add');
+        if (add)
+            return;
+
         const fetchstorage = async () => {
             try {
                 const response = await fetch(ApiUrl + `/api/magazyn/${storageId}`, {
@@ -43,9 +48,11 @@ const EditStorages: React.FC = () => {
     };
 
     const handleUpdatestorage = async () => {
+        let add = searchParams.get('add');
+
         try {
-            const response = await fetch(ApiUrl + `/api/magazyn/${storageId}`, {
-                method: 'PUT',
+            const response = await fetch(ApiUrl + (add ? `/api/magazyn` : `/api/magazyn/${storageId}`), {
+                method: add ? 'POST' : 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + await authService.getJwtToken()
@@ -68,7 +75,7 @@ const EditStorages: React.FC = () => {
 
     return (
         <div>
-            <h2>Edit storage</h2>
+            <h2>Storage Data</h2>
             <Form>
                 <Form.Group className="mb-3" controlId="formstorageName">
                     <Form.Label>Storage name</Form.Label>
@@ -106,7 +113,7 @@ const EditStorages: React.FC = () => {
                 {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
                 <Button variant="primary" onClick={handleUpdatestorage}>
-                    Update storage
+                    Confirm
                 </Button>
             </Form>
         </div>

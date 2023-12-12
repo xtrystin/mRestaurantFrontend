@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { ApiUrl } from '../../Consts.tsx';
 import authService from '../auth/AuthorizeService';
@@ -9,6 +9,7 @@ const EditProduct: React.FC = () => {
     const productId = useParams().id;
     const navigate = useNavigate();
     const [errorMsg, setErrorMsg] = useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [product, setProduct] = useState({
         name: '',
@@ -18,6 +19,9 @@ const EditProduct: React.FC = () => {
 
     useEffect(() => {
         // Fetch product data based on productId
+        let add = searchParams.get('add');
+        if (add)
+            return;
         const fetchProduct = async () => {
             try {
                 const response = await fetch(ApiUrl + `/api/produkt/${productId}`, {
@@ -42,9 +46,11 @@ const EditProduct: React.FC = () => {
     };
 
     const handleUpdateProduct = async () => {
+        let add = searchParams.get('add');
+
         try {
-            const response = await fetch(ApiUrl + `/api/produkt/${productId}`, {
-                method: 'PUT',
+            const response = await fetch(ApiUrl + (add ? `/api/produkt` : `/api/produkt/${productId}`), {
+                method: add ? 'POST' : 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + await authService.getJwtToken()
@@ -54,7 +60,7 @@ const EditProduct: React.FC = () => {
 
             if (response.ok) {
                 console.log('Product updated successfully');
-                navigate("/polproducts");
+                navigate("/products");
             } else {
                 console.error('Failed to update product');
                 setErrorMsg('Failed to update product');
@@ -67,7 +73,7 @@ const EditProduct: React.FC = () => {
 
     return (
         <div>
-            <h2>Edit Product</h2>
+            <h2>Product Data</h2>
             <Form>
                 <Form.Group className="mb-3" controlId="formProductName">
                     <Form.Label>Product Name</Form.Label>
@@ -104,7 +110,7 @@ const EditProduct: React.FC = () => {
                 {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
                 <Button variant="primary" onClick={handleUpdateProduct}>
-                    Update Product
+                    Confirm
                 </Button>
             </Form>
         </div>

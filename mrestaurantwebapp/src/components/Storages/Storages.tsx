@@ -11,7 +11,8 @@ const Storages: React.FC = () => {
     const navigate = useNavigate();
     const [tableData, setTableData] = useState<any[]>([]); // Initialize state for products_data
     const [showModal, setShowModal] = useState(false);
-    const [removeModalData, setRemoveModalData] = useState({id: '', name: ''});
+    const [removeModalData, setRemoveModalData] = useState({ id: '', name: '' });
+    const [cell, setCell] = useState(null);
 
     useEffect(() => {
         // Your async function
@@ -49,7 +50,8 @@ const Storages: React.FC = () => {
     const cellRemove = (cell) => {
         let cellData = cell.getRow().getData();
         //console.log(cellData);
-        setRemoveModalData({id: cellData._id, name: cellData.name});
+        setRemoveModalData({ id: cellData._id, name: cellData.name });
+        setCell(cell)
         setShowModal(true);
     }
 
@@ -67,7 +69,9 @@ const Storages: React.FC = () => {
         <div>
             <RemoveStorageModal
                 isVisible={showModal}
-                setVisible={setShowModal} 
+                setVisible={setShowModal}
+                cell={cell}
+                setCell={setCell}
                 name={removeModalData.name} 
                 id={removeModalData.id}
             />
@@ -83,7 +87,8 @@ const Storages: React.FC = () => {
                     { column: 'magazynName', dir: 'asc' },
                 ]}
             />
-            {/* Your other JSX goes here */}
+
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/storages/edit?add=1')}>Add</button>
         </div>
     );
 };

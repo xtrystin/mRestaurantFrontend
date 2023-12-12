@@ -63,6 +63,11 @@ const AppRoutes: AppRoute[] = [
         element: <EditProduct />,
     },
     {
+        path: ApplicationPaths.ProductsAdd,
+        requireAuth: true,
+        element: <EditProduct />,
+    },
+    {
         path: ApplicationPaths.PolProducts,
         requireAuth: true,
         element: <PolProducts />,
@@ -73,12 +78,22 @@ const AppRoutes: AppRoute[] = [
         element: <EditPolProduct />,
     },
     {
+        path: ApplicationPaths.PolProductsAdd,
+        requireAuth: true,
+        element: <EditPolProduct />,
+    },
+    {
         path: ApplicationPaths.Storages,
         requireAuth: true,
         element: <Storages />,
     },
     {
         path: ApplicationPaths.StoragesEdit,
+        requireAuth: true,
+        element: <EditStorages />,
+    },
+    {
+        path: ApplicationPaths.StoragesAdd,
         requireAuth: true,
         element: <EditStorages />,
     },

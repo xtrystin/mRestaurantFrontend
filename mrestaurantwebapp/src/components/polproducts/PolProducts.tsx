@@ -11,7 +11,8 @@ const PolProducts: React.FC = () => {
     const navigate = useNavigate();
     const [tableData, setTableData] = useState<any[]>([]); // Initialize state for products_data
     const [showModal, setShowModal] = useState(false);
-    const [removeModalData, setRemoveModalData] = useState({id: '', name: ''});
+    const [removeModalData, setRemoveModalData] = useState({ id: '', name: '' });
+    const [cell, setCell] = useState(null);
 
     useEffect(() => {
         // Your async function
@@ -67,7 +68,8 @@ const PolProducts: React.FC = () => {
     const cellRemove = (cell) => {
         let cellData = cell.getRow().getData();
         //console.log(cellData);
-        setRemoveModalData({id: cellData._id, name: cellData.name});
+        setRemoveModalData({ id: cellData._id, name: cellData.name });
+        setCell(cell)
         setShowModal(true);
     }
 
@@ -89,7 +91,9 @@ const PolProducts: React.FC = () => {
         <div>
             <RemovePolProductModal
                 isVisible={showModal}
-                setVisible={setShowModal} 
+                setVisible={setShowModal}
+                cell={cell}
+                setCell={setCell}
                 name={removeModalData.name} 
                 id={removeModalData.id}
             />
@@ -105,7 +109,8 @@ const PolProducts: React.FC = () => {
                     { column: 'magazynName', dir: 'asc' },
                 ]}
             />
-            {/* Your other JSX goes here */}
+
+            <button type="button" className="btn btn-primary" onClick={() => navigate('/polproducts/edit?add=1')}>Add</button>
         </div>
     );
 };
