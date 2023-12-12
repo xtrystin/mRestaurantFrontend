@@ -20,5 +20,7 @@ export const ApplicationPaths = {
     Storages: '/storages',
     StoragesEdit: '/storages/edit/:id',
     Pracownicy: '/pracownicy',
-    PracownicyEdit: '/pracownicy/edit/:id'
+    PracownicyEdit: '/pracownicy/edit/:id',
+    Dostawa: '/dostawa',
+    DostawaEdit: '/dostawa/edit/:id'
 };

@@ -13,6 +13,8 @@ import Storages from '../components/Storages/Storages';
 import EditStorages from '../components/Storages/EditStorages';
 import Pracownicy from '../components/Pracownicy/Pracownicy';
 import EditPracownicy from '../components/Pracownicy/EditPracownicy';
+import Dostawa from '../components/Dostawa/Dostawa';
+import EditDostawa from '../components/Dostawa/EditDostawa';
 
 export interface AppRoute {
     index?: boolean;
@@ -89,6 +91,16 @@ const AppRoutes: AppRoute[] = [
         path: ApplicationPaths.PracownicyEdit,
         requireAuth: true,
         element: <EditPracownicy />,
+    },
+    {
+        path: ApplicationPaths.Dostawa,
+        requireAuth: true,
+        element: <Dostawa />,
+    },
+    {
+        path: ApplicationPaths.DostawaEdit,
+        requireAuth: true,
+        element: <EditDostawa />,
     },
 ];
 
