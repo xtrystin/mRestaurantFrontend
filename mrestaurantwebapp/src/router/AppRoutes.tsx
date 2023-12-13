@@ -17,6 +17,9 @@ import Dostawa from '../components/Dostawa/Dostawa';
 import EditDostawa from '../components/Dostawa/EditDostawa';
 import { Profile } from '../components/Profile';
 import Straty from '../components/Straty/Straty';
+import Inwentarz from '../components/Inwentarz/Inwentarz';
+import Sales from '../components/Sales/Sales';
+
 
 export interface AppRoute {
     index?: boolean;
@@ -129,7 +132,6 @@ const AppRoutes: AppRoute[] = [
         requireAuth: true,
         element: <Straty />,
     },
-    /*
     {
         path: ApplicationPaths.Sales,
         requireAuth: true,
@@ -140,7 +142,7 @@ const AppRoutes: AppRoute[] = [
         requireAuth: true,
         element: <Inwentarz />,
     }
-    */
+    
 ];
 
 export default AppRoutes;
