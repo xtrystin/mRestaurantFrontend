@@ -12,34 +12,43 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
     public render() {
         return (
             <header>
-                <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light>
-                    <NavbarBrand tag={Link} to="/">mRestaurant</NavbarBrand>
+                <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-primary text-white" light>
+                    <NavbarBrand tag={Link} to="/" className='text-white'>mRestaurant</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} className="mr-2"/>
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
                         <ul className="navbar-nav flex-grow">
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/">Home</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/counter">Counter</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/fetch-data">Fetch data</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/products">Products</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/products">Products</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/polproducts">Semi Products</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/polproducts">Semi Products</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/storages">Storages</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/storages">Storages</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/pracownicy">Pracownicy</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/pracownicy">Pracownicy</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink tag={Link} className="text-dark" to="/dostawa">Dostawa</NavLink>
+                                <NavLink tag={Link} className="text-white" to="/dostawa">Dostawa</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-white" to="/straty">Straty</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-white" to="/sales">Sales</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-white" to="/inwentarz">Inwentarz</NavLink>
                             </NavItem>
                             <LoginMenu />
                         </ul>

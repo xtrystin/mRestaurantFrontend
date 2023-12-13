@@ -46,12 +46,12 @@ export class LoginMenu extends Component<{}, LoginMenuState> {
         return (
             <Fragment>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to={profilePath}>
+                    <NavLink tag={Link} className="text-white" to={profilePath}>
                         Hello {userName}
                     </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" onClick={ async () => await authService.logout() }>
+                    <NavLink tag={Link} className="text-white" onClick={ async () => await authService.logout() }>
                         Logout
                     </NavLink>
                 </NavItem>

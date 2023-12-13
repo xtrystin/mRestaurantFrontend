@@ -16,6 +16,7 @@ import EditPracownicy from '../components/Pracownicy/EditPracownicy';
 import Dostawa from '../components/Dostawa/Dostawa';
 import EditDostawa from '../components/Dostawa/EditDostawa';
 import { Profile } from '../components/Profile';
+import Straty from '../components/Straty/Straty';
 
 export interface AppRoute {
     index?: boolean;
@@ -123,6 +124,23 @@ const AppRoutes: AppRoute[] = [
         requireAuth: true,
         element: <EditDostawa />,
     },
+    {
+        path: ApplicationPaths.Straty,
+        requireAuth: true,
+        element: <Straty />,
+    },
+    /*
+    {
+        path: ApplicationPaths.Sales,
+        requireAuth: true,
+        element: <Sales />,
+    },
+    {
+        path: ApplicationPaths.Inwentarz,
+        requireAuth: true,
+        element: <Inwentarz />,
+    }
+    */
 ];
 
 export default AppRoutes;
