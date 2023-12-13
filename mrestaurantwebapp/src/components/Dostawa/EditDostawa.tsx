@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ReactTabulator } from 'react-tabulator';
 
 const EditDostawa: React.FC = () => {
-    const dostawaId = useParams().id;
+    const objectId = useParams().id;
     const navigate = useNavigate();
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -25,7 +25,7 @@ const EditDostawa: React.FC = () => {
         // Fetch storage data based on storageId
         const fetchDostawa = async () => {
             try {
-                const response = await fetch(ApiUrl + `/api/dostawa/${dostawaId}`, {
+                const response = await fetch(ApiUrl + `/api/dostawa/${objectId}`, {
                     headers: new Headers({ 'Authorization': 'Bearer ' + await authService.getJwtToken() })
                 });
                 let data = await response.json();
@@ -46,8 +46,8 @@ const EditDostawa: React.FC = () => {
 
         fetchDostawa();
 
-    }, [dostawaId]);
-
+    }, [objectId]);
+    //updates the current entry
     const handleInputChange = (e) => {
         if(e.target.name == "id"){
             let pprodukt = polProdukty.find((p)=> p._id == e.target.value)
@@ -64,16 +64,20 @@ const EditDostawa: React.FC = () => {
                 [e.target.name]: e.target.value
             });
     };
-
+    //updates backend
     const handleUpdate = async () => {
+        let updateObject = {
+            ...dostawa,
+            polProdukty: dostawa.polProdukty.map(p => p._id)
+        }
         try {
-            const response = await fetch(ApiUrl + `/api/dostawa/${dostawaId}`, {
+            const response = await fetch(ApiUrl + `/api/dostawa/${objectId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + await authService.getJwtToken()
                 },
-                body: JSON.stringify(dostawa),
+                body: JSON.stringify(updateObject),
             });
 
             if (response.ok) {
@@ -88,11 +92,11 @@ const EditDostawa: React.FC = () => {
             setErrorMsg("Error updating dostawa: " + error);
         }
     };
-
+    //Adds new entry to dostawa object
     const handleAddEntry = () => {
         if(entry.name && entry.amount > 0){
           let newProdukt = {
-            id: entry.id,
+            _id: entry.id,
             name: entry.name,
             unitMain: entry.unitMain
             }
