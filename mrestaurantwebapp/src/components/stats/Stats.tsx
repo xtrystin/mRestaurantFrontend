@@ -34,7 +34,9 @@ const Stats: React.FC = () => {
     }, []); // Empty dependency array to run the effect only once on mount
 
     const colorCell = function (cell, formatterParams, onRendered) {
-        return <div className="">{cell.getRow().getData()}</div>;
+        let data = cell.getRow().getData();
+        let color = (data.deviation >= 100) ? "text-success" : (data.deviation <= -100)? "text-danger" : "";
+        return `<div class="${color} h-100">${data.deviation}</div>`;
     };
 
     const columns2 = [
@@ -50,7 +52,7 @@ const Stats: React.FC = () => {
             {title:"PJ", field:"prevDay.pPAmountPJ", headerTooltip:true, headerSort:false},
             {title:"J", field:"prevDay.pPAmountJ", headerTooltip:true, headerSort:false},
         ]},
-        {title:"Deviance", field:"deviation", headerTooltip:true, headerSort:false},
+        {title:"Deviation", field:"deviation", headerTooltip:true, headerSort:false, formatter: colorCell},
     ];
 
     let currStats = statsData.filter((row) => row.name == statsId).find(() => true);
@@ -60,7 +62,6 @@ const Stats: React.FC = () => {
         ...p,
         
     }));
-    console.log(tableData2)
     // Define other functions here...
 
     return (
