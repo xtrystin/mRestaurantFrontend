@@ -13,7 +13,7 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
         return (
             <header>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3 bg-primary text-white" light>
-                    <NavbarBrand tag={Link} to="/" className='text-white'>mRestaurant</NavbarBrand>
+                    <NavbarBrand tag={Link} to="/" className='text-white flex-fill brand'>mRestaurant</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} className="mr-2"/>
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
                         <ul className="navbar-nav flex-grow">
@@ -49,6 +49,9 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} className="text-white" to="/inwentarz">Inwentarz</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-white" to="/stats">Statystyki</NavLink>
                             </NavItem>
                             <LoginMenu />
                         </ul>

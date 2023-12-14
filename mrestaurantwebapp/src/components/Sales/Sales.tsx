@@ -5,27 +5,8 @@ import { ReactTabulator } from 'react-tabulator';
 import authService from '../auth/AuthorizeService.js';
 import { useNavigate } from 'react-router-dom';
 import { ApiUrl } from '../../Consts.js';
-import { Button } from 'reactstrap';
-
-const DatePicker : React.FC = ({ sales, setData }) => {
-
-    function handleInputChange(e){
-        let id = e.target.value;
-        setData(id)
-    }
-
-    return (
-      <select className="form-control selectpicker m-2" data-live-search="true" id="selectSPProduct" onChange={(e) => handleInputChange(e)}>
-        <option value="-1">Wybierz inny dzień:</option>
-        {sales &&
-          sales.map((_sale) => (
-            <option key={_sale.name} value={_sale._id}>
-              {_sale.name}
-            </option>
-          ))}
-      </select>
-    );
-  };
+import { Button, Row, Col } from 'reactstrap';
+import DatePicker from '../DatePicker.js';
 
 const Sales: React.FC = () => {
     const navigate = useNavigate();
@@ -106,7 +87,11 @@ const Sales: React.FC = () => {
 
     return (
         <div>
-            <DatePicker sales={salesData} setData={setSaleId}/>
+            <Row>
+                <Col> <DatePicker days={salesData} setData={setSaleId} loading={salesData.length == 0}/> </Col> 
+                <Col md={"auto"}> {saleId && <Button className='btn-primary float-end' onClick={handleUpdate}>Confirm</Button>} </Col>
+            </Row>
+            
             {errorMsg && <p className='text-danger'>{errorMsg}</p>}
             <ReactTabulator
                 columns={columns}
@@ -118,7 +103,7 @@ const Sales: React.FC = () => {
                 paginationSizeSelector={[10, 20, 30, 40, 50]}
             />
             
-            {saleId && <Button className='btn-primary float-end' onClick={handleUpdate}>Confirm</Button>}
+            
             {/* Your other JSX goes here */}
         </div>
     );

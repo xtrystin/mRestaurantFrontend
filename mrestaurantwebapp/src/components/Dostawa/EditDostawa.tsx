@@ -127,7 +127,7 @@ const EditDostawa: React.FC = () => {
         {title:"Nazwa", field:"name", headerTooltip:true, headerSort:false},
         {title:"Ilość sztuk", field:"amount", headerTooltip:true, headerSort:false},
         {title:"Jednostka Główna", field:"unitMain", headerTooltip:true, headerSort:false},
-        {title:"Usuń", formatter:removeIcon, width:80, hozAlign:"center", headerTooltip:true, cellClick:function(e, cell){cellRemove(cell)}},
+        {title:"Usuń", formatter:"buttonCross", width:80, hozAlign:"center", headerTooltip:true, cellClick:function(e, cell){cellRemove(cell)}},
     ];
 
     let tableData = [];

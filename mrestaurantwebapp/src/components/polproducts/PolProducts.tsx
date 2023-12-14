@@ -82,7 +82,7 @@ const PolProducts: React.FC = () => {
             {title:"Jednostka", field:"unit", headerTooltip:true},
             {title:"Ilość J w PJ", field:"multiplayerUnitToSub", headerTooltip:true},
             {title:"Edytuj", formatter:editIcon, width:80, hozAlign:"center", headerTooltip:true, cellClick:function(e, cell){redirectToEditPage(e, cell)}},
-            {title:"Usuń", formatter:removeIcon, width:80, hozAlign:"center", headerTooltip:true, cellClick:function(e, cell){cellRemove(cell)}},
+            {title:"Usuń", formatter:"buttonCross", width:80, hozAlign:"center", headerTooltip:true, cellClick:function(e, cell){cellRemove(cell)}},
     ];
 
     // Define other functions here...

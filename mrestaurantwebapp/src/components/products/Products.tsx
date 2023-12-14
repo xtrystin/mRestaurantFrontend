@@ -60,7 +60,7 @@ const Products: React.FC = () => {
         { title: 'Cena', field: 'price', headerTooltip: true },
         { title: 'Wyłączony', field: 'isDisabled', width: 80, headerTooltip: true, formatter: 'tickCross', sorter: 'boolean', hozAlign: 'center' },
         { title: 'Edytuj', formatter: editIcon, width: 80, hozAlign: 'center', cellClick: (e, cell) => redirectToEditPage(e, cell) },
-        { title: 'Usuń', formatter: removeIcon, width: 80, hozAlign: 'center', headerTooltip: true, cellClick: (e, cell) => cellRemove(cell) },
+        { title: 'Usuń', formatter:"buttonCross", width: 80, hozAlign: 'center', headerTooltip: true, cellClick: (e, cell) => cellRemove(cell) },
     ];
 
     // Define other functions here...

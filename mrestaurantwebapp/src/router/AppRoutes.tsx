@@ -19,6 +19,7 @@ import { Profile } from '../components/Profile';
 import Straty from '../components/Straty/Straty';
 import Inwentarz from '../components/Inwentarz/Inwentarz';
 import Sales from '../components/Sales/Sales';
+import Stats from '../components/stats/Stats';
 
 
 export interface AppRoute {
@@ -141,6 +142,11 @@ const AppRoutes: AppRoute[] = [
         path: ApplicationPaths.Inwentarz,
         requireAuth: true,
         element: <Inwentarz />,
+    },
+    {
+        path: ApplicationPaths.Stats,
+        requireAuth: true,
+        element: <Stats/>,
     }
     
 ];

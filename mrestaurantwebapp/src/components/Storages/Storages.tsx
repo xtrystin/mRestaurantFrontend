@@ -60,7 +60,7 @@ const Storages: React.FC = () => {
             {title:"Nazwa", width:80, field:"name"},
             {title:"Lokalizacja", field:"location", widthGrow:3},
             {title:"Edytuj", formatter:editIcon, width:80, hozAlign:"center", cellClick:function(e, cell){redirectToEditPage(e, cell)}},
-            {title:"Usuń", formatter:removeIcon, width:80, hozAlign:"center", cellClick:function(e, cell){cellRemove(cell)}},
+            {title:"Usuń", formatter:"buttonCross", width:80, hozAlign:"center", cellClick:function(e, cell){cellRemove(cell)}},
     ];
 
     // Define other functions here...

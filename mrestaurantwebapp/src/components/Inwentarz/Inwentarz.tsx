@@ -6,26 +6,7 @@ import authService from '../auth/AuthorizeService.js';
 import { useNavigate } from 'react-router-dom';
 import { ApiUrl } from '../../Consts.js';
 import { Button } from 'reactstrap';
-
-const DatePicker : React.FC = ({ inw, setData }) => {
-
-    function handleInputChange(e){
-        let id = e.target.value;
-        setData(id)
-    }
-
-    return (
-      <select className="form-control selectpicker m-2" data-live-search="true" id="selectSPProduct" onChange={(e) => handleInputChange(e)}>
-        <option value="-1">Wybierz inny dzień:</option>
-        {inw &&
-          inw.map((inw) => (
-            <option key={inw.name} value={inw._id}>
-              {inw.name}
-            </option>
-          ))}
-      </select>
-    );
-  };
+import DatePicker from '../DatePicker.js';
 
 const Inwentarz: React.FC = () => {
     const navigate = useNavigate();
@@ -121,7 +102,7 @@ const Inwentarz: React.FC = () => {
 
     return (
         <div>
-            <DatePicker inw={inwData} setData={setInwId}/>
+            <DatePicker days={inwData} setData={setInwId} loading={inwData.length == 0}/>
             {errorMsg && <p className='text-danger'>{errorMsg}</p>}
 
             <ReactTabulator

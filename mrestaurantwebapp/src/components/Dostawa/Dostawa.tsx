@@ -7,27 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { ApiUrl } from '../../Consts.js';
 import RemoveDostawaModal from './RemoveDostawaModal.js';
 import { Button } from 'reactstrap';
-
-const DatePicker : React.FC = ({ dostawy, setData }) => {
-
-    function handleInputChange(e){
-        let id = e.target.value;
-        setData(id)
-        
-    }
-
-    return (
-      <select className="form-control selectpicker m-2" data-live-search="true" id="selectSPProduct" onChange={(e) => handleInputChange(e)}>
-        <option value="-1">Wybierz inny dzień:</option>
-        {dostawy &&
-          dostawy.map((_dostawa) => (
-            <option key={_dostawa.name} value={_dostawa._id}>
-              {_dostawa.name}
-            </option>
-          ))}
-      </select>
-    );
-  };
+import { Row, Col } from 'react-bootstrap';
+import DatePicker from '../DatePicker.js';
 
 const Dostawa: React.FC = () => {
     const navigate = useNavigate();
@@ -98,7 +79,12 @@ const Dostawa: React.FC = () => {
                 name={removeModalData.name} 
                 id={removeModalData.id}
             />
-            <DatePicker dostawy={dostawyData} setData={setdostawyId}/>
+            
+            <Row className='m-2'>
+                <Col> <DatePicker days={dostawyData} setData={setdostawyId} loading={dostawyData.length == 0}/> </Col> 
+                <Col md={"auto"}> {dostawaId && <Button className='btn-primary float-end' onClick={redirectToEditPage}>Edit</Button>} </Col>
+            </Row>
+            
             <ReactTabulator
                 columns={columns}
                 data={tableData}
@@ -108,7 +94,6 @@ const Dostawa: React.FC = () => {
                 paginationSize={20}
                 paginationSizeSelector={[10, 20, 30, 40, 50]}
             />
-            {dostawaId && <Button className='btn-primary float-end' onClick={redirectToEditPage}>Edit</Button>}
             {/* Your other JSX goes here */}
         </div>
     );

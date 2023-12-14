@@ -29,5 +29,6 @@ export const ApplicationPaths = {
     DostawaEdit: '/dostawa/edit/:id',
     Straty: '/straty',
     Sales: '/sales',
-    Inwentarz: '/inwentarz'
+    Inwentarz: '/inwentarz',
+    Stats: '/stats'
 };

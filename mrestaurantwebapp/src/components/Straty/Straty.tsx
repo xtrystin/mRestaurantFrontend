@@ -6,31 +6,13 @@ import authService from '../auth/AuthorizeService.js';
 import { useNavigate } from 'react-router-dom';
 import { ApiUrl } from '../../Consts.js';
 import { Button } from 'reactstrap';
-
-const DatePicker : React.FC = ({ straty, setData }) => {
-
-    function handleInputChange(e){
-        let id = e.target.value;
-        setData(id)
-    }
-
-    return (
-      <select className="form-control selectpicker m-2" data-live-search="true" id="selectSPProduct" onChange={(e) => handleInputChange(e)}>
-        <option value="-1">Wybierz inny dzień:</option>
-        {straty &&
-          straty.map((_strata) => (
-            <option key={_strata.name} value={_strata._id}>
-              {_strata.name}
-            </option>
-          ))}
-      </select>
-    );
-  };
+import { Row, Col } from 'react-bootstrap';
+import DatePicker from '../DatePicker.js';
 
 const Straty: React.FC = () => {
     const navigate = useNavigate();
     const [stratyData, setStratyData] = useState<any[]>([]); // Initialize state for products_data
-    const [strataId, setStrataId] = useState(null); // Initialize state for products_data
+    const [strataId, setStrataId] = useState(""); // Initialize state for products_data
     const [errorMsg, setErrorMsg] = useState("");
 
     useEffect(() => {
@@ -145,7 +127,10 @@ const Straty: React.FC = () => {
 
     return (
         <div>
-            <DatePicker straty={stratyData} setData={setStrataId}/>
+            <Row>
+                <Col> <DatePicker days={stratyData} setData={setStrataId} loading={stratyData.length == 0}/> </Col> 
+                <Col md={"auto"}> {strataId && <Button className='btn-primary float-end' onClick={handleUpdate}>Confirm</Button>} </Col>
+            </Row>
             {errorMsg && <p className='text-danger'>{errorMsg}</p>}
             <ReactTabulator
                 columns={columns}
@@ -167,7 +152,6 @@ const Straty: React.FC = () => {
                 paginationSizeSelector={[10, 20, 30, 40, 50]}
                 
             />
-            {strataId && <Button className='btn-primary float-end' onClick={handleUpdate}>Confirm</Button>}
             {/* Your other JSX goes here */}
         </div>
     );
